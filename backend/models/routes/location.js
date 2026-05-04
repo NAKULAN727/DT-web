@@ -16,6 +16,9 @@ router.post("/", async (req, res) => {
       { upsert: true, new: true }
     );
 
+    const io = req.app.get("io");
+    if (io) io.emit("location_update", tourist);
+
     res.json({ success: true, tourist });
   } catch (err) {
     res.status(500).json({ error: err.message });

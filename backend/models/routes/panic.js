@@ -11,7 +11,6 @@ router.post("/", async (req, res) => {
     if (!touristId || !location?.lat || !location?.lng) {
       return res.status(400).json({ error: "touristId, location.lat, and location.lng are required" });
     }
-
     if (location.lat === 0 && location.lng === 0) {
       return res.status(400).json({ error: "Invalid GPS coordinates (0,0). Real location required." });
     }
@@ -19,12 +18,14 @@ router.post("/", async (req, res) => {
     const alert = new Alert({ touristId, message: message || "Emergency help needed!", location });
     await alert.save();
 
-    // Update tourist status to help_needed
     await Tourist.findOneAndUpdate(
       { touristId },
       { status: "help_needed", lat: location.lat, lng: location.lng, lastSeen: new Date() },
       { upsert: true, new: true }
     );
+
+    const io = req.app.get("io");
+    if (io) io.emit("new_alert", alert);
 
     res.status(201).json({ success: true, alert });
   } catch (err) {
