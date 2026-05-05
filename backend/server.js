@@ -11,6 +11,7 @@ import locationRoutes from "./models/routes/location.js";
 import alertsRoutes from "./models/routes/alerts.js";
 import assignmentRoutes from "./models/routes/assignments.js";
 import efirRoutes from "./models/routes/efir.js";
+import touristsRoutes from "./models/routes/tourists.js";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use("/api/location", locationRoutes);
 app.use("/api/alerts", alertsRoutes);
 app.use("/api/assignments", assignmentRoutes);
 app.use("/api/efir", efirRoutes);
+app.use("/api/tourists", touristsRoutes);
 
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);

@@ -17,7 +17,7 @@ const Login = () => {
     try {
       const endpoint = isSignup ? '/auth/signup' : '/auth/login';
       const body = isSignup
-        ? { email: form.email, password: form.password, name: form.name, role: 'tourist' }
+        ? { email: form.email, password: form.password, name: form.name, role: 'police' }
         : { email: form.email, password: form.password };
 
       const res = await fetch(`${API}${endpoint}`, {
@@ -44,7 +44,7 @@ const Login = () => {
     <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ backgroundColor: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', width: '100%', maxWidth: '400px' }}>
         <h2 style={{ textAlign: 'center', color: '#1a365d', marginBottom: '30px', fontSize: '26px' }}>
-          {isSignup ? 'Create Account' : 'Tourist Login'}
+          {isSignup ? 'Create Account' : 'Police Login'}
         </h2>
 
         {error && (
